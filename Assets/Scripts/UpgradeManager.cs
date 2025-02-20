@@ -38,7 +38,7 @@ public class UpgradeManager : MonoBehaviour, IResettable
             coinManager.SpendCoins(cost);
             upgradeLevel++;
             upgradeBonus += upgradeSettings.upgradeBonusPerLevel;
-            coinManager.IncreaseCoinsPerClick(upgradeBonus);
+            coinManager.IncreaseCoinsPerClick(upgradeSettings.upgradeBonusPerLevel);
             SaveUpgrade();
             UpdateUI();
         }
@@ -70,15 +70,6 @@ public class UpgradeManager : MonoBehaviour, IResettable
         upgradeLevel = PlayerPrefs.GetInt("UpgradeLevel", 1);
         upgradeBonus = PlayerPrefs.GetInt("UpgradeBonus", 0);
         baseUpgradeCost = upgradeSettings.baseUpgradeCost;
-    }
-
-    public void ResetUpgrades() // Метод для сброса апгрейдов
-    {
-        upgradeLevel = 1;
-        upgradeBonus = 0;
-        baseUpgradeCost = upgradeSettings.baseUpgradeCost;
-        SaveUpgrade();
-        UpdateUI();
     }
 }
 

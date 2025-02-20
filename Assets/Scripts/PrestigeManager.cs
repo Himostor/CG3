@@ -7,19 +7,13 @@ public class PrestigeManager : MonoBehaviour, IResettable
     public Button prestigeButton;
     public TextMeshProUGUI prestigeText;
     public GameSettings gameSettings;
-    public EconomySettings economySettings;
 
     private int prestigePoints = 0;
     private CoinManager coinManager;
-    private UpgradeManager upgradeManager;
-    private AutoClicker autoClicker;
 
     void Start()
     {
         coinManager = CoinManager.Instance;
-        upgradeManager = FindObjectOfType<UpgradeManager>();
-        autoClicker = FindObjectOfType<AutoClicker>();
-
         prestigeButton?.onClick.AddListener(Prestige);
 
         LoadPrestige();
@@ -34,10 +28,7 @@ public class PrestigeManager : MonoBehaviour, IResettable
             prestigePoints += prestigeGained;
 
             coinManager.SetCoins(0);
-            upgradeManager.ResetUpgrades();
-            autoClicker.ResetProgress();
-
-            coinManager.IncreaseCoinsPerClick(Mathf.RoundToInt(prestigePoints * gameSettings.prestigeMultiplier));
+            coinManager.IncreaseCoinsPerClick(prestigeGained * Mathf.RoundToInt(gameSettings.prestigeMultiplier));
 
             SavePrestige();
             UpdateUI();
@@ -65,13 +56,6 @@ public class PrestigeManager : MonoBehaviour, IResettable
     void LoadPrestige()
     {
         prestigePoints = PlayerPrefs.GetInt("PrestigePoints", 0);
-        UpdateUI();
-    }
-
-    public void ResetPrestige() // Метод для сброса престижа
-    {
-        prestigePoints = 0;
-        SavePrestige();
         UpdateUI();
     }
 }

@@ -66,6 +66,14 @@ public class CoinManager : MonoBehaviour
         questManager?.CheckQuestProgress();
     }
 
+    public void IncreaseCoinsPerClick(int amount)
+    {
+        coinsPerClick += amount;
+        PlayerPrefs.SetInt("CoinsPerClick", coinsPerClick);
+        PlayerPrefs.Save();
+        UpdateUI();
+    }
+
     public void ResetCoins()
     {
         SetCoins(0);
@@ -73,36 +81,4 @@ public class CoinManager : MonoBehaviour
         SaveCoins();
         UpdateUI();
     }
-
-    public void ActivateBooster(bool active)
-    {
-        isBoosterActive = active;
-    }
-
-    void UpdateUI()
-    {
-        if (coinText) coinText.text = "CatCoins: " + catCoins;
-    }
-
-    void SaveCoins()
-    {
-        PlayerPrefs.SetInt("CatCoins", catCoins);
-        PlayerPrefs.SetInt("CoinsPerClick", coinsPerClick);
-        PlayerPrefs.Save();
-    }
-
-    void LoadCoins()
-    {
-        catCoins = PlayerPrefs.GetInt("CatCoins", 0);
-        coinsPerClick = gameSettings.tapCoins;
-    }
-
-    public void IncreaseCoinsPerClick(int amount) // Метод для увеличения монет за клик
-    {
-        coinsPerClick += amount;
-        PlayerPrefs.SetInt("CoinsPerClick", coinsPerClick);
-        PlayerPrefs.Save();
-        UpdateUI();
-    }
 }
-

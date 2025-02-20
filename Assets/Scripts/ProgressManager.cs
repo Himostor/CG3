@@ -1,14 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ProgressManager : MonoBehaviour
 {
     public static ProgressManager Instance { get; private set; }
 
-    private CoinManager coinManager;
-    private QuestManager questManager;
-    private UpgradeManager upgradeManager;
-    private PrestigeManager prestigeManager;
-    private AutoClicker autoClicker;
+    private List<IResettable> resettableObjects = new List<IResettable>();
 
     void Awake()
     {
@@ -25,11 +22,13 @@ public class ProgressManager : MonoBehaviour
 
     void Start()
     {
-        coinManager = FindObjectOfType<CoinManager>();
-        questManager = FindObjectOfType<QuestManager>();
-        upgradeManager = FindObjectOfType<UpgradeManager>();
-        prestigeManager = FindObjectOfType<PrestigeManager>();
-        autoClicker = FindObjectOfType<AutoClicker>();
+        FindAllResettables();
+    }
+
+    private void FindAllResettables()
+    {
+        resettableObjects.Clear();
+        resettableObjects.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IResettable>());
     }
 
     public void ResetProgress()
@@ -37,12 +36,12 @@ public class ProgressManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
-        coinManager?.ResetCoins();
-        questManager?.ResetQuests();
-        upgradeManager?.ResetUpgrades();
-        prestigeManager?.ResetPrestige();
-        autoClicker?.ResetProgress();
+        foreach (var resettable in resettableObjects)
+        {
+            resettable.ResetProgress();
+        }
 
         Debug.Log("Игровой прогресс сброшен!");
     }
 }
+
