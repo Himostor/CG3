@@ -22,3 +22,5 @@ Logs/
 obj/
 Build/
 Library/PackageCache/
+Library/
+Library/PackageCache/
