@@ -12,13 +12,12 @@ public class CatClicker : MonoBehaviour
     void Start()
     {
         coinManager = CoinManager.Instance;
-
         if (clickButton != null)
             clickButton.onClick.AddListener(OnCatClicked);
     }
 
     public void OnCatClicked()
     {
-        coinManager.AddCoins(coinManager.GetCoinsPerClick()); // ✅ Теперь клик даёт доход из GameSettings
+        coinManager.AddCoins(coinManager.GetCoinsPerClick());
     }
 }

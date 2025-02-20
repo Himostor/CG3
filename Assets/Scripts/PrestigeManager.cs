@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PrestigeManager : MonoBehaviour
+public class PrestigeManager : MonoBehaviour, IResettable
 {
     public Button prestigeButton;
     public TextMeshProUGUI prestigeText;
     public GameSettings gameSettings;
+    public EconomySettings economySettings;
 
     private int prestigePoints = 0;
     private CoinManager coinManager;
@@ -19,8 +20,7 @@ public class PrestigeManager : MonoBehaviour
         upgradeManager = FindObjectOfType<UpgradeManager>();
         autoClicker = FindObjectOfType<AutoClicker>();
 
-        if (prestigeButton != null)
-            prestigeButton.onClick.AddListener(Prestige);
+        prestigeButton?.onClick.AddListener(Prestige);
 
         LoadPrestige();
         UpdateUI();
@@ -35,7 +35,7 @@ public class PrestigeManager : MonoBehaviour
 
             coinManager.SetCoins(0);
             upgradeManager.ResetUpgrades();
-            autoClicker.ResetAutoClickers();
+            autoClicker.ResetProgress();
 
             coinManager.IncreaseCoinsPerClick(Mathf.RoundToInt(prestigePoints * gameSettings.prestigeMultiplier));
 
@@ -44,7 +44,7 @@ public class PrestigeManager : MonoBehaviour
         }
     }
 
-    public void ResetPrestige() // ✅ Теперь престиж тоже сбрасывается
+    public void ResetProgress()
     {
         prestigePoints = 0;
         SavePrestige();

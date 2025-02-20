@@ -3,18 +3,20 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-public class AutoClicker : MonoBehaviour
+public class AutoClicker : MonoBehaviour, IResettable
 {
     public TextMeshProUGUI autoClickerText;
     public Button autoClickerButton;
+    public GameSettings gameSettings;
 
     private int autoClickers = 0;
-    private float autoClickerInterval = 1f;
     private CoinManager coinManager;
+    private float autoClickerInterval;
 
     void Start()
     {
         coinManager = CoinManager.Instance;
+        autoClickerInterval = gameSettings.baseAutoClickerIncome;
         autoClickerButton.onClick.AddListener(BuyAutoClicker);
         StartCoroutine(AutoClickCoroutine());
     }
@@ -39,7 +41,7 @@ public class AutoClicker : MonoBehaviour
         }
     }
 
-    public void ResetAutoClickers() // ✅ Теперь автокликеры сбрасываются при ResetProgress()
+    public void ResetProgress()
     {
         autoClickers = 0;
         UpdateUI();
@@ -50,4 +52,3 @@ public class AutoClicker : MonoBehaviour
         autoClickerText.text = $"AutoClickers: {autoClickers}";
     }
 }
-

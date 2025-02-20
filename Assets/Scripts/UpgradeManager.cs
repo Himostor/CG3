@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UpgradeManager : MonoBehaviour
+public class UpgradeManager : MonoBehaviour, IResettable
 {
     public Button upgradeButton;
     public TextMeshProUGUI upgradeText;
-    public UpgradeSettings upgradeSettings; // ✅ Используем UpgradeSettings
+    public UpgradeSettings upgradeSettings;
 
     private CoinManager coinManager;
     private int upgradeLevel;
@@ -23,19 +23,7 @@ public class UpgradeManager : MonoBehaviour
             return;
         }
 
-        if (upgradeText == null)
-        {
-            Debug.LogError("UpgradeManager: upgradeText не привязан в Inspector!");
-            return;
-        }
-
-        if (upgradeButton == null)
-        {
-            Debug.LogError("UpgradeManager: upgradeButton не привязан в Inspector!");
-            return;
-        }
-
-        baseUpgradeCost = upgradeSettings.baseUpgradeCost; // ✅ Загружаем базовую стоимость апгрейдов
+        baseUpgradeCost = upgradeSettings.baseUpgradeCost;
 
         upgradeButton.onClick.AddListener(BuyUpgrade);
         LoadUpgrade();
@@ -44,7 +32,7 @@ public class UpgradeManager : MonoBehaviour
 
     void BuyUpgrade()
     {
-        int cost = baseUpgradeCost * upgradeLevel; // ✅ Используем корректную стоимость
+        int cost = baseUpgradeCost * upgradeLevel;
         if (coinManager.HasEnoughCoins(cost))
         {
             coinManager.SpendCoins(cost);
@@ -56,23 +44,17 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    public void ResetUpgrades()
+    public void ResetProgress()
     {
-        upgradeLevel = 1; // ✅ Теперь сбрасывает правильно
+        upgradeLevel = 1;
         upgradeBonus = 0;
-        baseUpgradeCost = upgradeSettings.baseUpgradeCost; // ✅ Восстанавливаем стоимость из UpgradeSettings
+        baseUpgradeCost = upgradeSettings.baseUpgradeCost;
         SaveUpgrade();
         UpdateUI();
     }
 
     void UpdateUI()
     {
-        if (upgradeText == null)
-        {
-            Debug.LogError("UpgradeManager: upgradeText не привязан в Inspector!");
-            return;
-        }
-
         upgradeText.text = $"Upgrade: {baseUpgradeCost * upgradeLevel} CatCoins\n+{upgradeBonus} per click";
     }
 
@@ -87,7 +69,6 @@ public class UpgradeManager : MonoBehaviour
     {
         upgradeLevel = PlayerPrefs.GetInt("UpgradeLevel", 1);
         upgradeBonus = PlayerPrefs.GetInt("UpgradeBonus", 0);
-        baseUpgradeCost = upgradeSettings.baseUpgradeCost; // ✅ Загружаем базовую стоимость
+        baseUpgradeCost = upgradeSettings.baseUpgradeCost;
     }
 }
-

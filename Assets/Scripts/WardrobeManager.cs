@@ -42,30 +42,6 @@ public class WardrobeManager : MonoBehaviour
         SaveOutfit();
     }
 
-    public void ChangeHat()
-    {
-        if (!hatUnlocked) return;
-        currentHatIndex = (currentHatIndex + 1) % hats.Length;
-        UpdateOutfit();
-        SaveOutfit();
-    }
-
-    public void ChangeShirt()
-    {
-        if (!shirtUnlocked) return;
-        currentShirtIndex = (currentShirtIndex + 1) % shirts.Length;
-        UpdateOutfit();
-        SaveOutfit();
-    }
-
-    public void ChangePants()
-    {
-        if (!pantsUnlocked) return;
-        currentPantsIndex = (currentPantsIndex + 1) % pants.Length;
-        UpdateOutfit();
-        SaveOutfit();
-    }
-
     void UpdateOutfit()
     {
         hatLayer.sprite = hatUnlocked ? hats[currentHatIndex] : null;
@@ -78,9 +54,6 @@ public class WardrobeManager : MonoBehaviour
         PlayerPrefs.SetInt("HatUnlocked", hatUnlocked ? 1 : 0);
         PlayerPrefs.SetInt("ShirtUnlocked", shirtUnlocked ? 1 : 0);
         PlayerPrefs.SetInt("PantsUnlocked", pantsUnlocked ? 1 : 0);
-        PlayerPrefs.SetInt("HatIndex", currentHatIndex);
-        PlayerPrefs.SetInt("ShirtIndex", currentShirtIndex);
-        PlayerPrefs.SetInt("PantsIndex", currentPantsIndex);
         PlayerPrefs.Save();
     }
 
@@ -89,8 +62,5 @@ public class WardrobeManager : MonoBehaviour
         hatUnlocked = PlayerPrefs.GetInt("HatUnlocked", 0) == 1;
         shirtUnlocked = PlayerPrefs.GetInt("ShirtUnlocked", 0) == 1;
         pantsUnlocked = PlayerPrefs.GetInt("PantsUnlocked", 0) == 1;
-        currentHatIndex = PlayerPrefs.GetInt("HatIndex", 0);
-        currentShirtIndex = PlayerPrefs.GetInt("ShirtIndex", 0);
-        currentPantsIndex = PlayerPrefs.GetInt("PantsIndex", 0);
     }
 }

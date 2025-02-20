@@ -4,7 +4,7 @@ using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    public GameObject shopPanel; // ✅ Панель магазина
+    public GameObject shopPanel;
     public Button openShopButton, closeShopButton;
     public Button buyHatButton, buyShirtButton, buyPantsButton;
     public TextMeshProUGUI hatPriceText, shirtPriceText, pantsPriceText;
@@ -21,19 +21,19 @@ public class ShopManager : MonoBehaviour
         buyHatButton.onClick.AddListener(BuyHat);
         buyShirtButton.onClick.AddListener(BuyShirt);
         buyPantsButton.onClick.AddListener(BuyPants);
-        openShopButton.onClick.AddListener(OpenShop); // ✅ Открытие магазина
-        closeShopButton.onClick.AddListener(CloseShop); // ✅ Закрытие магазина
+        openShopButton.onClick.AddListener(OpenShop);
+        closeShopButton.onClick.AddListener(CloseShop);
 
-        shopPanel.SetActive(false); // ✅ Изначально скрываем магазин
+        shopPanel.SetActive(false);
         UpdateUI();
     }
 
-    void OpenShop() // ✅ Метод открытия магазина
+    void OpenShop()
     {
         shopPanel.SetActive(true);
     }
 
-    void CloseShop() // ✅ Метод закрытия магазина
+    void CloseShop()
     {
         shopPanel.SetActive(false);
     }

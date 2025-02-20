@@ -29,7 +29,7 @@ public class ProgressManager : MonoBehaviour
         questManager = FindObjectOfType<QuestManager>();
         upgradeManager = FindObjectOfType<UpgradeManager>();
         prestigeManager = FindObjectOfType<PrestigeManager>();
-        autoClicker = FindObjectOfType<AutoClicker>(); // ✅ Теперь учитываем автокликеры
+        autoClicker = FindObjectOfType<AutoClicker>();
     }
 
     public void ResetProgress()
@@ -41,9 +41,8 @@ public class ProgressManager : MonoBehaviour
         questManager?.ResetQuests();
         upgradeManager?.ResetUpgrades();
         prestigeManager?.ResetPrestige();
-        autoClicker?.ResetAutoClickers(); // ✅ Теперь сбрасывает автокликеры
+        autoClicker?.ResetProgress();
 
         Debug.Log("Игровой прогресс сброшен!");
     }
 }
-

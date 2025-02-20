@@ -66,20 +66,11 @@ public class CoinManager : MonoBehaviour
         questManager?.CheckQuestProgress();
     }
 
-    public void IncreaseCoinsPerClick(int amount)
-    {
-        coinsPerClick += amount;
-        PlayerPrefs.SetInt("CoinsPerClick", coinsPerClick);
-        PlayerPrefs.Save();
-        UpdateUI();
-    }
-
     public void ResetCoins()
     {
         SetCoins(0);
         coinsPerClick = gameSettings.tapCoins;
-        PlayerPrefs.SetInt("CoinsPerClick", gameSettings.tapCoins);
-        PlayerPrefs.Save();
+        SaveCoins();
         UpdateUI();
     }
 

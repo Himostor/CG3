@@ -24,7 +24,7 @@ public class BoosterManager : MonoBehaviour
             isBoosterActive = true;
             coinManager.ActivateBooster(true);
             boosterText.text = "Booster Active!";
-            Invoke("DeactivateBooster", boosterDuration);
+            Invoke(nameof(DeactivateBooster), boosterDuration);
         }
     }
 
@@ -35,3 +35,4 @@ public class BoosterManager : MonoBehaviour
         boosterText.text = "Booster Ready!";
     }
 }
+
