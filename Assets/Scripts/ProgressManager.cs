@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq; // Директивы using должны быть здесь
 
 public class ProgressManager : MonoBehaviour
 {
@@ -45,4 +45,3 @@ public class ProgressManager : MonoBehaviour
         Debug.Log("Игровой прогресс сброшен!");
     }
 }
-
