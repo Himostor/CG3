@@ -10,3 +10,9 @@ Library/Bee/ # ✅ Убираем кеш Bee
 *.apk
 *.unitypackage
 *.mp4
+Library/
+Temp/
+Logs/
+obj/
+Build/
+Library/PackageCache/
