@@ -1,0 +1,12 @@
+Library/
+Temp/
+Logs/
+obj/
+Build/
+Library/PackageCache/
+Library/Bee/ # ✅ Убираем кеш Bee
+*.DS_Store
+*.exe
+*.apk
+*.unitypackage
+*.mp4
