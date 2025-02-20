@@ -96,5 +96,13 @@ public class CoinManager : MonoBehaviour
         catCoins = PlayerPrefs.GetInt("CatCoins", 0);
         coinsPerClick = gameSettings.tapCoins;
     }
+
+    public void IncreaseCoinsPerClick(int amount) // Метод для увеличения монет за клик
+    {
+        coinsPerClick += amount;
+        PlayerPrefs.SetInt("CoinsPerClick", coinsPerClick);
+        PlayerPrefs.Save();
+        UpdateUI();
+    }
 }
 

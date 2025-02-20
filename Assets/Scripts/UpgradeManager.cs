@@ -71,4 +71,14 @@ public class UpgradeManager : MonoBehaviour, IResettable
         upgradeBonus = PlayerPrefs.GetInt("UpgradeBonus", 0);
         baseUpgradeCost = upgradeSettings.baseUpgradeCost;
     }
+
+    public void ResetUpgrades() // Метод для сброса апгрейдов
+    {
+        upgradeLevel = 1;
+        upgradeBonus = 0;
+        baseUpgradeCost = upgradeSettings.baseUpgradeCost;
+        SaveUpgrade();
+        UpdateUI();
+    }
 }
+

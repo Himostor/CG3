@@ -67,5 +67,12 @@ public class PrestigeManager : MonoBehaviour, IResettable
         prestigePoints = PlayerPrefs.GetInt("PrestigePoints", 0);
         UpdateUI();
     }
+
+    public void ResetPrestige() // Метод для сброса престижа
+    {
+        prestigePoints = 0;
+        SavePrestige();
+        UpdateUI();
+    }
 }
 
