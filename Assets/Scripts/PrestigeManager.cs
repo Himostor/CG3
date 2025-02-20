@@ -7,6 +7,9 @@ public class PrestigeManager : MonoBehaviour, IResettable
     public Button prestigeButton;
     public TextMeshProUGUI prestigeText;
     public GameSettings gameSettings;
+    
+    public int prestigeBonusPoints = 5; // Сколько очков престижа дается за престиж
+    public int extraClickBonus = 2; // Сколько доп. кликов дается за престиж
 
     private int prestigePoints = 0;
     private CoinManager coinManager;
@@ -15,7 +18,6 @@ public class PrestigeManager : MonoBehaviour, IResettable
     {
         coinManager = CoinManager.Instance;
         prestigeButton?.onClick.AddListener(Prestige);
-
         LoadPrestige();
         UpdateUI();
     }
@@ -25,10 +27,10 @@ public class PrestigeManager : MonoBehaviour, IResettable
         if (coinManager.GetCoins() >= gameSettings.prestigeThreshold)
         {
             int prestigeGained = coinManager.GetCoins() / gameSettings.prestigeThreshold;
-            prestigePoints += prestigeGained;
+            prestigePoints += prestigeGained * prestigeBonusPoints;
 
             coinManager.SetCoins(0);
-            coinManager.IncreaseCoinsPerClick(prestigeGained * Mathf.RoundToInt(gameSettings.prestigeMultiplier));
+            coinManager.IncreaseCoinsPerClick(prestigeGained * extraClickBonus);
 
             SavePrestige();
             UpdateUI();
@@ -59,4 +61,5 @@ public class PrestigeManager : MonoBehaviour, IResettable
         UpdateUI();
     }
 }
+
 

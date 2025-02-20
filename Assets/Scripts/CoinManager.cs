@@ -69,16 +69,30 @@ public class CoinManager : MonoBehaviour
     public void IncreaseCoinsPerClick(int amount)
     {
         coinsPerClick += amount;
-        PlayerPrefs.SetInt("CoinsPerClick", coinsPerClick);
-        PlayerPrefs.Save();
+        SaveCoins();
         UpdateUI();
     }
 
-    public void ResetCoins()
+    public void ActivateBooster(bool active)
     {
-        SetCoins(0);
+        isBoosterActive = active;
+    }
+
+    void UpdateUI()
+    {
+        if (coinText) coinText.text = "CatCoins: " + catCoins;
+    }
+
+    void SaveCoins()
+    {
+        PlayerPrefs.SetInt("CatCoins", catCoins);
+        PlayerPrefs.SetInt("CoinsPerClick", coinsPerClick);
+        PlayerPrefs.Save();
+    }
+
+    void LoadCoins()
+    {
+        catCoins = PlayerPrefs.GetInt("CatCoins", 0);
         coinsPerClick = gameSettings.tapCoins;
-        SaveCoins();
-        UpdateUI();
     }
 }

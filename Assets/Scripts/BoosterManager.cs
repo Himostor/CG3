@@ -35,4 +35,3 @@ public class BoosterManager : MonoBehaviour
         boosterText.text = "Booster Ready!";
     }
 }
-

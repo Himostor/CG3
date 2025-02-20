@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ProgressManager : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class ProgressManager : MonoBehaviour
     private void FindAllResettables()
     {
         resettableObjects.Clear();
-        resettableObjects.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IResettable>());
+        resettableObjects.AddRange(FindObjectsOfType<MonoBehaviour>().Where(obj => obj is IResettable).Cast<IResettable>());
     }
 
     public void ResetProgress()
