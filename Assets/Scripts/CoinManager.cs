@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class CoinManager : MonoBehaviour
 {
@@ -33,54 +35,21 @@ public class CoinManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void AddCoins(int amount)
+    public void ResetCoins()
     {
-        catCoins += isBoosterActive ? amount * 2 : amount;
+        catCoins = 0;
+        coinsPerClick = gameSettings.tapCoins;
         SaveCoins();
         UpdateUI();
-        questManager?.CheckQuestProgress();
-    }
-
-    public bool HasEnoughCoins(int amount) => catCoins >= amount;
-
-    public void SpendCoins(int amount)
-    {
-        if (HasEnoughCoins(amount))
-        {
-            catCoins -= amount;
-            SaveCoins();
-            UpdateUI();
-            questManager?.CheckQuestProgress();
-        }
-    }
-
-    public int GetCoins() => catCoins;
-
-    public int GetCoinsPerClick() => coinsPerClick;
-
-    public void SetCoins(int amount)
-    {
-        catCoins = amount;
-        SaveCoins();
-        UpdateUI();
-        questManager?.CheckQuestProgress();
-    }
-
-    public void IncreaseCoinsPerClick(int amount)
-    {
-        coinsPerClick += amount;
-        SaveCoins();
-        UpdateUI();
-    }
-
-    public void ActivateBooster(bool active)
-    {
-        isBoosterActive = active;
+        Debug.Log("Монеты сброшены");
     }
 
     void UpdateUI()
     {
-        if (coinText) coinText.text = "CatCoins: " + catCoins;
+        if (coinText)
+            coinText.text = "CatCoins: " + catCoins;
+        else
+            Debug.LogWarning("coinText не назначен в инспекторе!");
     }
 
     void SaveCoins()
@@ -88,11 +57,13 @@ public class CoinManager : MonoBehaviour
         PlayerPrefs.SetInt("CatCoins", catCoins);
         PlayerPrefs.SetInt("CoinsPerClick", coinsPerClick);
         PlayerPrefs.Save();
+        Debug.Log("Сохранены данные: CatCoins=" + catCoins + ", CoinsPerClick=" + coinsPerClick);
     }
 
     void LoadCoins()
     {
         catCoins = PlayerPrefs.GetInt("CatCoins", 0);
         coinsPerClick = gameSettings.tapCoins;
+        Debug.Log("Загружены данные: CatCoins=" + catCoins + ", CoinsPerClick=" + coinsPerClick);
     }
 }
